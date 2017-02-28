@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package tp_architecture_modulaire;
+package tp_architecture_modulaire.platform;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -13,6 +13,7 @@ import java.io.Reader;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Properties;
+import tp_architecture_modulaire.appli.IAfficheur;
 
 /**
  *
@@ -73,19 +74,21 @@ public class Loader {
         return o;
     }
     
-    public static IAfficheur getAfficheur() throws FileNotFoundException, IOException, ClassNotFoundException, InstantiationException, IllegalAccessException{
+    public static Object getPlugin(String filename, Class<?> contrainte) throws FileNotFoundException, IOException, ClassNotFoundException, InstantiationException, IllegalAccessException{
         //charger le fichier
         Properties p = new Properties();
-        InputStream is = new FileInputStream("/comptes/E140035M/NetBeansProjects/TP_Architecture_modulaire/src/tp_architecture_modulaire/config.txt");
+        InputStream is = new FileInputStream(filename);
         p.load(is);
         
         //créer le beans
-        Class<?> cl= Class.forName(p.getProperty("class"));
+        Class<?> cl= Class.forName(p.getProperty("class"));        
+        if(contrainte.isAssignableFrom(cl)){
+            Object o = cl.newInstance();
+            return o;
+        }  
         
-        // créer l'objet
-        Object o = cl.newInstance();
         
-        return (IAfficheur)o;
+        return null;
     }
     
 }

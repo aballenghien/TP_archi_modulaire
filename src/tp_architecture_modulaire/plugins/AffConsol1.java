@@ -3,7 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package tp_architecture_modulaire;
+package tp_architecture_modulaire.plugins;
+
+import tp_architecture_modulaire.appli.IAfficheur;
 
 /**
  *

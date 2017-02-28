@@ -1,0 +1,4 @@
+class=tp_architecture_modulaire.plugins.Person
+Nom=Toto
+Ville=Nantes
+Age=12
