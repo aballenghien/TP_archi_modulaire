@@ -12,8 +12,10 @@ import java.io.InputStream;
 import java.io.Reader;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.List;
 import java.util.Properties;
 import tp_architecture_modulaire.appli.IAfficheur;
+import org.yaml.snakeyaml.Yaml;
 
 /**
  *
@@ -90,5 +92,37 @@ public class Loader {
         
         return null;
     }
+    
+    public Object conv(Object source, Class<?> target) throws NoSuchMethodException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, InstantiationException{
+		Object res = target.newInstance();
+		for(Method m: source.getClass().getMethods()){
+			if(isGetter(m)){
+				Method setter = target.getMethod("s"+m.getName().substring(1), m.getReturnType());
+				if(setter == null){
+					System.out.println();
+				}else{
+					setter.invoke(res, m.invoke(source,null));
+				}
+			}
+		}
+		return res;
+	}
+
+	boolean isGetter(Method m){
+		return (m.getName().startsWith("get")&&m.getParameterTypes().length == 0);
+	}
+        
+//        public List<IDescription> getDescrForPlugin(Class<?> constraint) throws FileNotFoundException{
+//            String filename = "";
+//            Yaml yaml = new Yaml();
+//            InputStream is = new FileInputStream(filename);
+//            yaml.load(is);
+//            
+//        }
+//        
+//        public Object getPluginForDescr(IDescription description){
+//            
+//        }
+        
     
 }

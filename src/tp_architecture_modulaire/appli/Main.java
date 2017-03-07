@@ -31,7 +31,7 @@ public class Main {
      */
     public static void main(String[] args) throws IOException, FileNotFoundException, ClassNotFoundException, InstantiationException, IllegalAccessException, NoSuchMethodException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException {
             Object o = Loader.loadBeanV2("/comptes/E140035M/NetBeansProjects/TP_Architecture_modulaire/src/tp_architecture_modulaire/appli/beans.txt");
-            ((IAfficheur)Loader.getPlugin("/comptes/E140035M/NetBeansProjects/TP_Architecture_modulaire/src/tp_architecture_modulaire/appli/config.txt", IAfficheur.class)).affiche(((Person)o).toString());
+            ((IAfficheur)Loader.getPlugin("/comptes/E140035M/NetBeansProjects/TP_Architecture_modulaire/src/tp_architecture_modulaire/appli/config.txt", IAfficheur.class)).affiche((o).toString());
         
        
     }
